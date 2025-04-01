@@ -1,0 +1,18 @@
+#include "Base.xcconfig"
+#include "User.xcconfig"
+
+// Release configuration
+CONFIGURATION = Release
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+ENABLE_NS_ASSERTIONS = NO
+GCC_OPTIMIZATION_LEVEL = s
+ONLY_ACTIVE_ARCH = NO
+SWIFT_OPTIMIZATION_LEVEL = -O
+
+// Development team
+DEVELOPMENT_TEAM = $(TEAM_ID)
+
+// Code signing
+CODE_SIGN_STYLE = Automatic
+CODE_SIGN_IDENTITY = Apple Distribution
+

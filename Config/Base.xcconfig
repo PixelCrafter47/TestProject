@@ -1,0 +1,21 @@
+// Base configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// Project and target names
+PROJECT_NAME = TestProject
+TARGET_NAME = TestProject
+
+// Bundle identifier
+PRODUCT_BUNDLE_IDENTIFIER = com.pixelcrafter.testproject
+
+// Deployment
+IPHONEOS_DEPLOYMENT_TARGET = 15.0
+TARGETED_DEVICE_FAMILY = 1,2
+
+// Swift
+SWIFT_VERSION = 5.0
+
+// Other settings
+ENABLE_BITCODE = NO
+CLANG_ENABLE_MODULES = YES
+SWIFT_INSTALL_OBJC_HEADER = NO

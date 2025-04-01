@@ -1,0 +1,18 @@
+#include "Base.xcconfig"
+#include "User.xcconfig"
+
+// Debug configuration
+CONFIGURATION = Debug
+DEBUG_INFORMATION_FORMAT = dwarf
+ENABLE_TESTABILITY = YES
+GCC_OPTIMIZATION_LEVEL = 0
+ONLY_ACTIVE_ARCH = YES
+SWIFT_OPTIMIZATION_LEVEL = -Onone
+
+// Development team
+DEVELOPMENT_TEAM = $(TEAM_ID)
+
+// Code signing
+CODE_SIGN_STYLE = Automatic
+CODE_SIGN_IDENTITY = Apple Development
+
