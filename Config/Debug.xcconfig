@@ -1,5 +1,4 @@
 #include "Base.xcconfig"
-#include "User.xcconfig"
 
 // Debug configuration
 CONFIGURATION = Debug
@@ -8,11 +7,25 @@ ENABLE_TESTABILITY = YES
 GCC_OPTIMIZATION_LEVEL = 0
 ONLY_ACTIVE_ARCH = YES
 SWIFT_OPTIMIZATION_LEVEL = -Onone
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG
+GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 $(inherited)
+
+// Code signing
+CODE_SIGN_IDENTITY = Apple Development
+CODE_SIGN_IDENTITY[sdk=iphoneos*] = Apple Development
+
+// Swift Compiler - Custom Flags
+OTHER_SWIFT_FLAGS = -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=100
+
+#include? "User.xcconfig"
 
 // Development team
 DEVELOPMENT_TEAM = $(TEAM_ID)
 
-// Code signing
-CODE_SIGN_STYLE = Automatic
-CODE_SIGN_IDENTITY = Apple Development
+// Debug symbols
+GCC_GENERATE_DEBUGGING_SYMBOLS = YES
+COPY_PHASE_STRIP = NO
+
+// Asset catalog
+ASSETCATALOG_COMPILER_OPTIMIZATION = time
 
