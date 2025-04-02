@@ -7,6 +7,13 @@ options:
   generateEmptyDirectories: true
   minimumXcodeGenVersion: '2.42.0'
 
+packages:
+  SwiftGen:
+    url: https://github.com/SwiftGen/SwiftGen.git
+    from: 6.6.2
+  SwiftLint:
+    url: https://github.com/realm/SwiftLint.git
+    from: 0.54.0
 
 settings:
   base:
@@ -156,14 +163,17 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.pixelcrafter.testproject
         CODE_SIGN_STYLE: Automatic
         CODE_SIGN_IDENTITY: Apple Development
-        DEVELOPMENT_TEAM: $(DEVELOPMENT_TEAM)
-      dependencies: []
+        DEVELOPMENT_TEAM: $(TEAM_ID)
+    dependencies:
+      - package: SwiftGen
+        product: SwiftGen
+      - package: SwiftLint
+        product: SwiftLint
 
   TestProjectTests:
     type: bundle.unit-test
     platform: iOS
     deploymentTarget: "15.0"
-    # это мне не понятно, разобраться
     configurations:
       Debug:
         xcconfig: Config/Debug.xcconfig
@@ -173,7 +183,6 @@ targets:
       - path: Tests/UnitTests
         createIntermediateGroups: true
     settings:
-      # это мне не понятно, разобраться
       base:
         PRODUCT_BUNDLE_IDENTIFIER: $(PRODUCT_BUNDLE_IDENTIFIER).tests
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/TestProject.app/TestProject"
