@@ -1,12 +1,7 @@
-#include? "User.xcconfig"
-
 // Base configuration
 SWIFT_VERSION = 5.0
 ENABLE_BITCODE = NO
 CLANG_ENABLE_MODULES = YES
 SWIFT_INSTALL_OBJC_HEADER = NO
 
-// Team settings
-DEVELOPMENT_TEAM = $(TEAM_ID)
-CODE_SIGN_STYLE = Automatic
-CODE_SIGN_IDENTITY = Apple Development
+#include? "User.xcconfig"

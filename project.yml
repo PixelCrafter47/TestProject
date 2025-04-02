@@ -7,13 +7,6 @@ options:
   generateEmptyDirectories: true
   minimumXcodeGenVersion: '2.42.0'
 
-packages:
-  SwiftGen:
-    url: https://github.com/SwiftGen/SwiftGen.git
-    from: 6.6.2
-  SwiftLint:
-    url: https://github.com/realm/SwiftLint.git
-    from: 0.54.0
 
 settings:
   base:
@@ -164,16 +157,24 @@ targets:
         CODE_SIGN_STYLE: Automatic
         CODE_SIGN_IDENTITY: Apple Development
         DEVELOPMENT_TEAM: $(TEAM_ID)
-    dependencies:
-      - package: SwiftGen
-        product: SwiftGen
-      - package: SwiftLint
-        product: SwiftLint
+    prebuildScripts:
+      - name: SwiftLint
+        script: |
+          if [[ "$(uname -m)" == arm64 ]]; then
+            export PATH="/opt/homebrew/bin:$PATH"
+          fi
+          if which swiftlint >/dev/null; then
+            swiftlint
+          else
+            echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+          fi
+    dependencies: []
 
   TestProjectTests:
     type: bundle.unit-test
     platform: iOS
     deploymentTarget: "15.0"
+    # это мне не понятно, разобраться
     configurations:
       Debug:
         xcconfig: Config/Debug.xcconfig
@@ -183,6 +184,7 @@ targets:
       - path: Tests/UnitTests
         createIntermediateGroups: true
     settings:
+      # это мне не понятно, разобраться
       base:
         PRODUCT_BUNDLE_IDENTIFIER: $(PRODUCT_BUNDLE_IDENTIFIER).tests
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/TestProject.app/TestProject"
