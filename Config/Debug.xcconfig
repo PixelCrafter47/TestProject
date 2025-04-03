@@ -1,6 +1,6 @@
 #include "Base.xcconfig"
 
-// Debug configuration
+// Конфигурация Debug
 CONFIGURATION = Debug
 DEBUG_INFORMATION_FORMAT = dwarf
 GCC_OPTIMIZATION_LEVEL = 0
@@ -12,19 +12,11 @@ ENABLE_NS_ASSERTIONS = NO
 STRIP_INSTALLED_PRODUCT = NO
 VALIDATE_PRODUCT = NO
 
-// Настройки сборки для Debug
+// Настройки сборки
 BUILD_VARIANTS = debug
 
-// Debug-specific settings
+// Специфичные настройки Debug
 EAGER_COMPILATION_ALLOW_SCRIPTS = NO
-
-// Development team
-DEVELOPMENT_TEAM = $(TEAM_ID)
-
-// Code signing
-CODE_SIGN_STYLE = Automatic
-CODE_SIGN_IDENTITY = Apple Development
-CODE_SIGN_ENTITLEMENTS = Resources/TestProject.entitlements
 
 #include? "User.xcconfig"
 

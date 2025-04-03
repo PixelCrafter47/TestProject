@@ -1,25 +1,22 @@
 #include "Base.xcconfig"
 
-// Release configuration
+// Конфигурация Release
 CONFIGURATION = Release
 DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
-ENABLE_NS_ASSERTIONS = NO
 GCC_OPTIMIZATION_LEVEL = s
 ONLY_ACTIVE_ARCH = NO
 SWIFT_OPTIMIZATION_LEVEL = -O
 SWIFT_COMPILATION_MODE = wholemodule
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE
+ENABLE_NS_ASSERTIONS = NO
 STRIP_INSTALLED_PRODUCT = YES
+VALIDATE_PRODUCT = YES
 
-// Настройки сборки для Release
+// Настройки сборки
 BUILD_VARIANTS = release
 
-// Development team
-DEVELOPMENT_TEAM = $(TEAM_ID)
-
-// Code signing
-CODE_SIGN_STYLE = Automatic
-CODE_SIGN_IDENTITY = Apple Distribution
-CODE_SIGN_ENTITLEMENTS = Resources/TestProject.entitlements
+// Специфичные настройки Release
+EAGER_COMPILATION_ALLOW_SCRIPTS = NO
 
 #include? "User.xcconfig"
 
