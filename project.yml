@@ -1,22 +1,27 @@
 name: TestProject
 options:
   bundleIdPrefix: com.pixelcrafter
-  xcodeVersion: '16.2'
-  deploymentTarget: '15.0'
+  deploymentTarget:
+    iOS: 15.0
+  xcodeVersion: "15.3"
   groupSortPosition: top
   generateEmptyDirectories: true
-  minimumXcodeGenVersion: '2.42.0'
+  createIntermediateGroups: true
+  usesTabs: false
+  indentWidth: 2
+  tabWidth: 2
+  developmentLanguage: en
 
-
+configs:
+  Debug: debug
+  Release: release
 settings:
   base:
-    xcconfig: Config/Base.xcconfig
-
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
   configs:
-    Debug:
-      xcconfig: Config/Debug.xcconfig
-    Release:
-      xcconfig: Config/Release.xcconfig
+    debug: Config/Debug.xcconfig
+    release: Config/Release.xcconfig
 
 groups:
   Sources:
@@ -156,7 +161,6 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.pixelcrafter.testproject
         CODE_SIGN_STYLE: Automatic
         CODE_SIGN_IDENTITY: Apple Development
-        DEVELOPMENT_TEAM: $(TEAM_ID)
     prebuildScripts:
       - name: SwiftLint
         script: |
@@ -168,13 +172,13 @@ targets:
           else
             echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
           fi
+        basedOnDependencyAnalysis: true
     dependencies: []
 
   TestProjectTests:
     type: bundle.unit-test
     platform: iOS
     deploymentTarget: "15.0"
-    # это мне не понятно, разобраться
     configurations:
       Debug:
         xcconfig: Config/Debug.xcconfig
@@ -184,12 +188,20 @@ targets:
       - path: Tests/UnitTests
         createIntermediateGroups: true
     settings:
-      # это мне не понятно, разобраться
       base:
         PRODUCT_BUNDLE_IDENTIFIER: $(PRODUCT_BUNDLE_IDENTIFIER).tests
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/TestProject.app/TestProject"
     dependencies:
       - target: TestProject
+    info:
+      path: Tests/Info.plist
+      properties:
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        LSRequiresIPhoneOS: true
+        ITSAppUsesNonExemptEncryption: false
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: false
 
   TestProjectUITests:
     type: bundle.ui-testing
@@ -209,6 +221,15 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: $(PRODUCT_BUNDLE_IDENTIFIER).uitests
     dependencies:
       - target: TestProject
+    info:
+      path: Tests/Info.plist
+      properties:
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        LSRequiresIPhoneOS: true
+        ITSAppUsesNonExemptEncryption: false
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: false
 
 schemes:
   TestProjectDebug:

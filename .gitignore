@@ -148,3 +148,6 @@ tasks.md
 .Trashes
 ehthumbs.db
 Thumbs.db 
+
+# Info.plist files
+**/Info.plist
