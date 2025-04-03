@@ -1,0 +1,22 @@
+#include "Base.xcconfig"
+
+// Конфигурация Release
+CONFIGURATION = Release
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+GCC_OPTIMIZATION_LEVEL = s
+ONLY_ACTIVE_ARCH = NO
+SWIFT_OPTIMIZATION_LEVEL = -O
+SWIFT_COMPILATION_MODE = wholemodule
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE
+ENABLE_NS_ASSERTIONS = NO
+STRIP_INSTALLED_PRODUCT = YES
+VALIDATE_PRODUCT = YES
+
+// Настройки сборки
+BUILD_VARIANTS = release
+
+// Специфичные настройки Release
+EAGER_COMPILATION_ALLOW_SCRIPTS = NO
+
+#include? "User.xcconfig"
+

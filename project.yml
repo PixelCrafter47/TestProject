@@ -1,0 +1,279 @@
+name: TestProject
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: 15.0
+  xcodeVersion: "14.0"
+  groupSortPosition: top
+  generateEmptyDirectories: true
+  createIntermediateGroups: true
+  usesTabs: false
+  indentWidth: 2
+  tabWidth: 2
+  developmentLanguage: en
+
+configs:
+  Debug: debug
+  Release: release
+settings:
+  base:
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    ENABLE_HARDENED_RUNTIME: YES
+    CODE_SIGN_INJECT_BASE_ENTITLEMENTS: YES
+    ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+    ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+    ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    CODE_SIGN_STYLE: Automatic
+    CODE_SIGN_IDENTITY: Apple Development
+    INFOPLIST_FILE: Resources/Info.plist
+    INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+    INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+  configs:
+    debug: Config/Debug.xcconfig
+    release: Config/Release.xcconfig
+
+groups:
+  Sources:
+    path: Sources
+    sourceTree: "<group>"
+    createIntermediateGroups: true
+    children:
+      App:
+        path: Sources/App
+        sourceTree: "<group>"
+        createIntermediateGroups: true
+      UI:
+        path: Sources/UI
+        sourceTree: "<group>"
+        createIntermediateGroups: true
+        children:
+          Screens:
+            path: Sources/UI/Screens
+            sourceTree: "<group>"
+            createIntermediateGroups: true
+          Common:
+            path: Sources/UI/Common
+            sourceTree: "<group>"
+            createIntermediateGroups: true
+      Models:
+        path: Sources/Models
+        sourceTree: "<group>"
+        createIntermediateGroups: true
+      Services:
+        path: Sources/Services
+        sourceTree: "<group>"
+        createIntermediateGroups: true
+      Utils:
+        path: Sources/Utils
+        sourceTree: "<group>"
+        createIntermediateGroups: true
+  Resources:
+    path: Resources
+    sourceTree: "<group>"
+    createIntermediateGroups: true
+    children:
+      Assets:
+        path: Resources/Assets.xcassets
+        sourceTree: "<group>"
+        type: folder
+      Localization:
+        path: Resources/Localization
+        sourceTree: "<group>"
+        type: folder
+      Fonts:
+        path: Resources/Fonts
+        sourceTree: "<group>"
+        type: folder
+        optional: true
+      LaunchScreen:
+        path: Resources/LaunchScreen.storyboard
+        sourceTree: "<group>"
+        type: file
+  Tests:
+    path: Tests
+    sourceTree: "<group>"
+    createIntermediateGroups: true
+    children:
+      UnitTests:
+        path: Tests/UnitTests
+        sourceTree: "<group>"
+        createIntermediateGroups: true
+      UITests:
+        path: Tests/UITests
+        sourceTree: "<group>"
+        createIntermediateGroups: true
+        optional: true
+  Config:
+    path: Config
+    sourceTree: "<group>"
+    createIntermediateGroups: true
+
+targets:
+  TestProject:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: Sources/App
+        createIntermediateGroups: true
+      - path: Sources/UI
+        createIntermediateGroups: true
+      - path: Sources/Models
+        createIntermediateGroups: true
+      - path: Sources/Services
+        createIntermediateGroups: true
+      - path: Sources/Utils
+        createIntermediateGroups: true
+      - path: Config
+        createIntermediateGroups: true
+    resources:
+      - path: Resources/Assets.xcassets
+        createIntermediateGroups: true
+      - path: Resources/Fonts
+        createIntermediateGroups: true
+      - path: Resources/Localization
+        createIntermediateGroups: true
+    info:
+      path: Resources/Info.plist
+      properties:
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        LSRequiresIPhoneOS: true
+        UILaunchStoryboardName: LaunchScreen
+        UIRequiresFullScreen: false
+        UIStatusBarHidden: false
+        UIStatusBarStyle: UIStatusBarStyleDefault
+        UIViewControllerBasedStatusBarAppearance: true
+        ITSAppUsesNonExemptEncryption: false
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: Default Configuration
+                UISceneDelegateClassName: $(PRODUCT_MODULE_NAME).SceneDelegate
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: false
+    entitlements:
+      path: Resources/TestProject.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.network.client: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(BUNDLE_ID_PREFIX).testproject
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_IDENTITY: Apple Development
+        CODE_SIGN_ENTITLEMENTS: Resources/TestProject.entitlements
+    prebuildScripts:
+      - name: SwiftLint
+        script: |
+          if [[ "$(uname -m)" == arm64 ]]; then
+            export PATH="/opt/homebrew/bin:$PATH"
+          fi
+          if which swiftlint >/dev/null; then
+            swiftlint
+          else
+            echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+          fi
+        basedOnDependencyAnalysis: true
+    dependencies: []
+
+  TestProjectTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "15.0"
+    configurations:
+      Debug:
+        xcconfig: Config/Debug.xcconfig
+      Release:
+        xcconfig: Config/Release.xcconfig
+    sources:
+      - path: Tests/UnitTests
+        createIntermediateGroups: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(PRODUCT_BUNDLE_IDENTIFIER).tests
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/TestProject.app/TestProject"
+    dependencies:
+      - target: TestProject
+    info:
+      path: Tests/Info.plist
+      properties:
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        LSRequiresIPhoneOS: true
+        ITSAppUsesNonExemptEncryption: false
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: false
+
+  TestProjectUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "15.0"
+    configurations:
+      Debug:
+        xcconfig: Config/Debug.xcconfig
+      Release:
+        xcconfig: Config/Release.xcconfig
+    sources:
+      - path: Tests/UITests
+        createIntermediateGroups: true
+        optional: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(PRODUCT_BUNDLE_IDENTIFIER).uitests
+    dependencies:
+      - target: TestProject
+    info:
+      path: Tests/Info.plist
+      properties:
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        LSRequiresIPhoneOS: true
+        ITSAppUsesNonExemptEncryption: false
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: false
+
+schemes:
+  TestProjectDebug:
+    build:
+      targets:
+        TestProject: [debug]
+    run:
+      config: Debug
+    test:
+      targets:
+        - TestProjectTests
+        - TestProjectUITests
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+
+  TestProjectRelease:
+    build:
+      targets:
+        TestProject: [release]
+    run:
+      config: Release
+    test:
+      targets:
+        - TestProjectTests
+        - TestProjectUITests
+      config: Release
+    profile:
+      config: Release
+    analyze:
+      config: Release
+    archive:
+      config: Release
