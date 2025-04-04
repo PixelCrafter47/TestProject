@@ -1,0 +1,41 @@
+# Исключаемые файлы и директории
+excluded:
+  - Carthage
+  - Pods
+  - Tests
+  - TestProjectTests
+  - TestProjectUITests
+  - Generated
+  - Resources
+
+# Пользовательские правила
+custom_rules:
+  no_semicolons:
+    name: "No Semicolons"
+    regex: ';$'
+    message: "Не используйте точку с запятой в конце строки"
+    severity: warning
+
+  custom_line_length:
+    name: "Custom Line Length"
+    regex: '^.{120,}$'
+    message: "Длина строки должна быть не более 120 символов"
+    severity: warning
+    match_kinds:
+      - comment
+      - identifier
+      - string
+      - typeidentifier
+      - attribute.builtin
+
+  custom_line_length_error:
+    name: "Custom Line Length Error"
+    regex: '^.{151,}$'
+    message: "Длина строки должна быть не более 150 символов"
+    severity: error
+    match_kinds:
+      - comment
+      - identifier
+      - string
+      - typeidentifier
+      - attribute.builtin 
