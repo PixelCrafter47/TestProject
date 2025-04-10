@@ -15,4 +15,8 @@ final class AnalyticsService: AnalyticsServiceProtocol {
             print("Parameters: \(parameters)")
         }
     }
-} 
+}
+
+class a {
+  static var a = 3
+}

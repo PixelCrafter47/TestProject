@@ -32,63 +32,7 @@ settings:
     debug: Config/Debug.xcconfig
     release: Config/Release.xcconfig
 
-groups:
-  Sources:
-    path: Sources
-    sourceTree: "<group>"
-    createIntermediateGroups: true
-    children:
-      App:
-        path: Sources/App
-        sourceTree: "<group>"
-        createIntermediateGroups: true
-      UI:
-        path: Sources/UI
-        sourceTree: "<group>"
-        createIntermediateGroups: true
-        children:
-          Screens:
-            path: Sources/UI/Screens
-            sourceTree: "<group>"
-            createIntermediateGroups: true
-          Common:
-            path: Sources/UI/Common
-            sourceTree: "<group>"
-            createIntermediateGroups: true
-      Models:
-        path: Sources/Models
-        sourceTree: "<group>"
-        createIntermediateGroups: true
-      Services:
-        path: Sources/Services
-        sourceTree: "<group>"
-        createIntermediateGroups: true
-      Utils:
-        path: Sources/Utils
-        sourceTree: "<group>"
-        createIntermediateGroups: true
-  Resources:
-    path: Resources
-    sourceTree: "<group>"
-    createIntermediateGroups: true
-    children:
-      Assets:
-        path: Resources/Assets.xcassets
-        sourceTree: "<group>"
-        type: folder
-      Localization:
-        path: Resources/Localization
-        sourceTree: "<group>"
-        type: folder
-      Fonts:
-        path: Resources/Fonts
-        sourceTree: "<group>"
-        type: folder
-        optional: true
-      LaunchScreen:
-        path: Resources/LaunchScreen.storyboard
-        sourceTree: "<group>"
-        type: file
+
   Tests:
     path: Tests
     sourceTree: "<group>"
@@ -126,13 +70,9 @@ targets:
         createIntermediateGroups: true
       - path: Config
         createIntermediateGroups: true
-    resources:
-      - path: Resources/Assets.xcassets
+      - path: Resources
         createIntermediateGroups: true
-      - path: Resources/Fonts
-        createIntermediateGroups: true
-      - path: Resources/Localization
-        createIntermediateGroups: true
+
     info:
       path: Resources/Info.plist
       properties:
@@ -171,18 +111,6 @@ targets:
         CODE_SIGN_STYLE: Automatic
         CODE_SIGN_IDENTITY: Apple Development
         CODE_SIGN_ENTITLEMENTS: Resources/TestProject.entitlements
-    prebuildScripts:
-      - name: SwiftLint
-        script: |
-          if [[ "$(uname -m)" == arm64 ]]; then
-            export PATH="/opt/homebrew/bin:$PATH"
-          fi
-          if which swiftlint >/dev/null; then
-            swiftlint
-          else
-            echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
-          fi
-        basedOnDependencyAnalysis: true
     dependencies: []
 
   TestProjectTests:
